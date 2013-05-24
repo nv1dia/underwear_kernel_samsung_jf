@@ -89,22 +89,22 @@ usb_config=`getprop persist.sys.usb.config`
 case "$usb_config" in
     "" | "adb") #USB persist config not set, select default configuration
         case $target in
-	    "apq8064" | "fusion3")
-				setprop persist.sys.usb.config mtp
-				;;
+            "apq8064" | "fusion3")
+                setprop persist.sys.usb.config mtp
+            ;;
             "msm8960" | "msm8974")
                 case "$baseband" in
                     "mdm")
 #                         setprop persist.sys.usb.config diag,diag_mdm,serial_hsic,serial_tty,rmnet_hsic,mass_storage,adb
-						 setprop persist.sys.usb.config mtp
+                        setprop persist.sys.usb.config mtp
                     ;;
                     "sglte")
 #                         setprop persist.sys.usb.config diag,diag_mdm,serial_smd,serial_tty,serial_hsuart,rmnet_hsuart,mass_storage,adb
-						 setprop persist.sys.usb.config mtp
+                        setprop persist.sys.usb.config mtp
                     ;;
                     *)
 #                         setprop persist.sys.usb.config diag,serial_smd,serial_tty,rmnet_bam,mass_storage,adb
-						 setprop persist.sys.usb.config mtp
+                        setprop persist.sys.usb.config mtp
                     ;;
                 esac
             ;;
