@@ -64,8 +64,8 @@ if [ -e $KERNELDIR/arch/arm/boot/zImage ]; then
 	cp -R ../META-INF .
 	rm ramdisk.gz
 	rm zImage
-	rm ../Underwear-jflteatt*.zip
-	zip -r ../Underwear-jflteatt-$curdate.zip .
+	rm ../Underwear-kernel-jflteatt*.zip
+	zip -r ../Underwear-kernel-jflteatt-$curdate.zip .
 	cd $KERNELDIR
 else
 	echo "KERNEL DID NOT BUILD! no zImage exist"
