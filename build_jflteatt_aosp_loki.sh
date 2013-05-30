@@ -4,7 +4,7 @@ export PARENT_DIR=`readlink -f ..`
 export INITRAMFS_DEST=$KERNELDIR/kernel/usr/initramfs
 export INITRAMFS_SOURCE=`readlink -f ..`/Kernel_Stuff/Ramdisks/AOSP_JFLTE
 export CONFIG_AOSP_BUILD=y
-export PACKAGEDIR=$PARENT_DIR/Kernel_Stuff/Packages_jflteatt/AOSP_JFELTE_ATT
+export PACKAGEDIR=$PARENT_DIR/Kernel_Stuff/Packages_jflteatt_loki/AOSP_JFELTE_ATT
 #Enable FIPS mode
 export USE_SEC_FIPS_MODE=true
 export ARCH=arm
