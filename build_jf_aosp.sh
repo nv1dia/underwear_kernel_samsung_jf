@@ -4,7 +4,7 @@ export PARENT_DIR=`readlink -f ..`
 export INITRAMFS_DEST=$KERNELDIR/kernel/usr/initramfs
 export INITRAMFS_SOURCE=`readlink -f ..`/Kernel_Stuff/Ramdisks/AOSP_JFLTE
 export CONFIG_AOSP_BUILD=y
-export PACKAGEDIR=$PARENT_DIR/Kernel_Stuff/Packages_jflteatt/AOSP_JFELTE_ATT
+export PACKAGEDIR=$PARENT_DIR/Kernel_Stuff/Packages_jf/AOSP_JF
 #Enable FIPS mode
 export USE_SEC_FIPS_MODE=true
 export ARCH=arm
@@ -37,7 +37,7 @@ rm $PACKAGEDIR/zImage
 rm arch/arm/boot/zImage
 
 echo "Make the kernel"
-make VARIANT_DEFCONFIG=underwear_jf_att_defconfig SELINUX_DEFCONFIG=jfselinux_defconfig jf_att_defconfig
+make VARIANT_DEFCONFIG=underwear_jf_defconfig SELINUX_DEFCONFIG=jfselinux_defconfig jf_att_defconfig
 
 HOST_CHECK=`uname -n`
 if [ $HOST_CHECK = 'ktoonsez-VirtualBox' ] || [ $HOST_CHECK = 'task650-Underwear' ]; then
@@ -64,8 +64,8 @@ if [ -e $KERNELDIR/arch/arm/boot/zImage ]; then
 	cp -R ../META-INF .
 	rm ramdisk.gz
 	rm zImage
-	rm ../Underwear-kernel-jflteatt*.zip
-	zip -r ../Underwear-kernel-jflteatt-$curdate.zip .
+	rm ../Underwear-kernel-jf*.zip
+	zip -r ../Underwear-kernel-jf-$curdate.zip .
 	cd $KERNELDIR
 else
 	echo "KERNEL DID NOT BUILD! no zImage exist"
