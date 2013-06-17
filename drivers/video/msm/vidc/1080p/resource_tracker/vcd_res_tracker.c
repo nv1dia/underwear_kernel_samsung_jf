@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2010-2013, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -160,9 +160,15 @@ ion_bail_out:
 static void res_trk_pmem_free(struct ddl_buf_addr *addr)
 {
 	struct ddl_context *ddl_context;
+
+	if (!addr) {
+		DDL_MSG_ERROR("\n%s() NULL address", __func__);
+		return;
+	}
+
 	ddl_context = ddl_get_context();
 	if (ddl_context->video_ion_client) {
-		if (addr && addr->alloc_handle) {
+		if (addr->alloc_handle) {
 			ion_free(ddl_context->video_ion_client,
 			 addr->alloc_handle);
 			addr->alloc_handle = NULL;
@@ -377,7 +383,8 @@ static u32 res_trk_sel_clk_rate(unsigned long hclk_rate)
 	mutex_lock(&resource_context.lock);
 	if (clk_set_rate(resource_context.vcodec_clk,
 		hclk_rate)) {
-		VCDRES_MSG_ERROR("vidc hclk set rate failed\n");
+		VCDRES_MSG_INFO("clk_rate = %u not supported\n",
+			(u32)hclk_rate);
 		status = false;
 	} else
 		resource_context.vcodec_clk_rate = hclk_rate;
@@ -736,6 +743,9 @@ void res_trk_init(struct device *device, u32 irq)
 			resource_context.vidc_platform_data->disable_dmx;
 			resource_context.disable_fullhd =
 			resource_context.vidc_platform_data->disable_fullhd;
+			resource_context.enable_sec_metadata =
+			resource_context.vidc_platform_data->
+				enable_sec_metadata;
 #ifdef CONFIG_MSM_BUS_SCALING
 			resource_context.vidc_bus_client_pdata =
 			resource_context.vidc_platform_data->
@@ -894,6 +904,10 @@ u32 res_trk_get_disable_fullhd(void)
 {
 	return resource_context.disable_fullhd;
 }
+u32 res_trk_get_enable_sec_metadata(void)
+{
+	return resource_context.enable_sec_metadata;
+}
 
 int res_trk_enable_iommu_clocks(void)
 {
@@ -1005,9 +1019,9 @@ int res_trk_open_secure_session()
 	mutex_unlock(&resource_context.secure_lock);
 	return 0;
 unsecure_cmd_heap:
-	msm_ion_unsecure_heap(ION_HEAP(resource_context.memtype));
-unsecure_memtype_heap:
 	msm_ion_unsecure_heap(ION_HEAP(resource_context.cmd_mem_type));
+unsecure_memtype_heap:
+	msm_ion_unsecure_heap(ION_HEAP(resource_context.memtype));
 disable_iommu_clks:
 	res_trk_disable_iommu_clocks();
 error_open:
