@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 3.4.47 Kernel Configuration
+# Linux/arm 3.4.50 Kernel Configuration
 #
 CONFIG_ARM=y
 CONFIG_ARM_HAS_SG_CHAIN=y
@@ -529,6 +529,7 @@ CONFIG_MSM_CPU_PWRCTL=y
 CONFIG_SEC_THERMISTOR=y
 CONFIG_FORCE_FAST_CHARGE=y
 # CONFIG_SEC_FACTORY is not set
+# CONFIG_PM8921_CHARGER_CALLBACK is not set
 
 #
 # System MMU
